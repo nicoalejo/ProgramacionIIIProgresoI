@@ -3,7 +3,7 @@ import java.util.*;
 public class RedSocial {
 
     Queue<Persona> personasEnEspera = new LinkedList<>();
-    Queue<Persona> personasActivas = new PriorityQueue<>((a,b) -> a.prioridad - b.prioridad);
+    Queue<Persona> personasActivas = new PriorityQueue<>((a,b) -> a.getPrioridad() - b.getPrioridad());
     //Queue<Persona> personasActivas = new PriorityQueue<>(Comparator.comparingInt(a -> a.prioridad));
 
     Stack<Persona> personasEliminadas = new Stack<>();
@@ -11,14 +11,14 @@ public class RedSocial {
     public void AgregarPersonaColaEspera(Persona persona){
         boolean isAlreadyAdded = false;
         for(Persona p: personasEnEspera){
-            if(p.id == persona.id){
+            if(p.getId() == persona.getId()){
                 isAlreadyAdded = true;
                 break;
             }
         }
         if(!isAlreadyAdded){
             for(Persona p: personasActivas){
-                if(p.id == persona.id){
+                if(p.getId() == persona.getId()){
                     isAlreadyAdded = true;
                     break;
                 }
@@ -26,7 +26,7 @@ public class RedSocial {
         }
         if(!isAlreadyAdded){
             for(Persona p: personasEliminadas){
-                if(p.id == persona.id){
+                if(p.getId() == persona.getId()){
                     isAlreadyAdded = true;
                     break;
                 }
@@ -65,7 +65,7 @@ public class RedSocial {
     public Persona BuscarPorId(int id, boolean buscarColaActiva) {
         Queue<Persona> colaBuscarPersona = buscarColaActiva ? personasActivas : personasEnEspera;
         for(Persona p: colaBuscarPersona){
-            if(p.id == id){
+            if(p.getId() == id){
                 return p;
             }
         }
@@ -76,7 +76,7 @@ public class RedSocial {
         Queue<Persona> colaBuscarPersona = buscarColaActiva ? personasActivas : personasEnEspera;
         List<Persona> personasEncontradas = new ArrayList<>();
         for(Persona p: colaBuscarPersona){
-            if(p.prioridad >= 50){
+            if(p.getPrioridad() >= 50){
                 personasEncontradas.add(p);
             }
         }
